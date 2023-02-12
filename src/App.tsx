@@ -32,8 +32,8 @@ function App() {
           </div>
 
           <div className='grid grid-cols-1'>
-            <button className="my-2 border-2 border-black" onClick={() => createAccount(username, password)} >Login</button>
-            <button className="my-2 border-2 border-black" onClick={() => login(username, password)}>Create Account</button>
+            {/* <button className="my-2 border-2 border-black" onClick={() => createAccount(username, password)} >Login</button> */}
+            <button className="my-2 border-2 border-black" onClick={() => createAccount(username, password)}>Create Account</button>
           </div>
         </div>
       </div>
@@ -42,13 +42,16 @@ function App() {
 }
 
 function createAccount(username: string, password: string) {
+  console.log(username)
+  console.log(password)
+
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: username, password: password})
   }
 
-  fetch('http://localhost:8080/users', requestOptions)
+  fetch('http://localhost:8080/users/', requestOptions)
     .then(response => response.json())
 }
 
@@ -59,7 +62,7 @@ function login(username: string, password: string) {
     body: JSON.stringify({ username: username, password: password})
   }
 
-  fetch('http://localhost:8080/login', requestOptions)
+  fetch('http://localhost:8080/login/', requestOptions)
     .then(response => response.json())
 }
 
