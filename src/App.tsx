@@ -42,9 +42,6 @@ function App() {
 }
 
 function createAccount(username: string, password: string) {
-  console.log(username)
-  console.log(password)
-
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
