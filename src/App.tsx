@@ -1,6 +1,33 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Cookies from 'js-cookie'
+import Tokens from './dtos/tokens';
+
+export const getAccessToken = () => Cookies.get('access_token')
+export const getRefreshToken = () => Cookies.get('refresh_token')
+export const isAuthenticated = () => !!getAccessToken()
+
+export const authenticate = () => {
+  if (getRefreshToken()) {
+    try {
+      const tokens = await refreshTokens()
+
+      const expireLength = 60 * 60 * 1000
+      const expireTime = new Date(new Date().getTime() + expireLength)
+
+      Cookies.set('access_token', tokens.accessToken, { expires: expireTime });
+      Cookies.set('refresh_token', tokens.refreshToken);
+
+      return true
+    } catch(error) {
+      // redirectToLogin()
+      return false
+    }
+  }
+
+  // redirectToLogin()
+  return false
+}
 
 function App() {
   const [username, setUsername] = useState('')
@@ -61,6 +88,13 @@ function login(username: string, password: string) {
 
   fetch('http://localhost:8080/login/', requestOptions)
     .then(response => response.json())
+}
+
+function refreshTokens(): Tokens {
+  return {
+    refreshToken: "",
+    accessToken: ""
+  }
 }
 
 export default App;
