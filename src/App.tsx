@@ -1,33 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import './App.css';
 import Cookies from 'js-cookie'
-import Tokens from './dtos/tokens';
-
-export const getAccessToken = () => Cookies.get('access_token')
-export const getRefreshToken = () => Cookies.get('refresh_token')
-export const isAuthenticated = () => !!getAccessToken()
-
-export const authenticate = () => {
-  if (getRefreshToken()) {
-    try {
-      const tokens = await refreshTokens()
-
-      const expireLength = 60 * 60 * 1000
-      const expireTime = new Date(new Date().getTime() + expireLength)
-
-      Cookies.set('access_token', tokens.accessToken, { expires: expireTime });
-      Cookies.set('refresh_token', tokens.refreshToken);
-
-      return true
-    } catch(error) {
-      // redirectToLogin()
-      return false
-    }
-  }
-
-  // redirectToLogin()
-  return false
-}
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from './home/home';
+import AuthenticateBeforeRender, { isAuthenticated } from './services/AuthenticateBeforeRender';
 
 function App() {
   const [username, setUsername] = useState('')
@@ -37,6 +13,17 @@ function App() {
     <div className="App">
       <header className="App-header">
       </header>
+      <Routes>
+        <Route path="/"></Route>
+        <Route 
+          path="/home"
+          element={isAuthenticated() ? (
+            <Home />
+          ) : (
+            <AuthenticateBeforeRender render={() => <Home />} />
+          )}
+        />
+      </Routes>
       <div className='grid grid-cols-1 place-items-center'> 
         <div className='w-1/4'>
           <div className='pt-24 grid grid-rows-3'>
@@ -90,11 +77,5 @@ function login(username: string, password: string) {
     .then(response => response.json())
 }
 
-function refreshTokens(): Tokens {
-  return {
-    refreshToken: "",
-    accessToken: ""
-  }
-}
 
 export default App;
