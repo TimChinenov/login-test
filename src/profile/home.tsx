@@ -13,7 +13,8 @@ export default function Home(props: any) {
 
     return (
         <div>
-            Welcome Home {user?.username}!
+            <h1>Welcome Home {user?.username}!</h1>
+            <p>Score: {user?.score}</p>
         </div>
     )
 }
