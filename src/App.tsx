@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './profile/home';
 import Login from './login/login';
-import { isAuthenticated } from './services/AuthenticateBeforeRender';
+import { isAuthenticated } from './services/auth-service';
 
 function App() {
   return (

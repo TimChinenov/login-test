@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { redirectToHome, setAccessToken } from "../services/AuthenticateBeforeRender"
+import { redirectToHome, setAccessToken } from "../services/auth-service"
 
 export default function Login() {
     const [usernameField, setUsernameField] = useState<string>('')

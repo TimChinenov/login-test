@@ -19,11 +19,11 @@ export function redirectToHome() {
     return  window.location.replace("http://localhost:3000/home");
 }
 
-export function getCurrentUser(setUser: any) {
+export function getCurrentUser() {
     let token = getAccessToken()
 
     if (!token) {
-        return
+        return Promise.resolve()
     }
 
     let requestOptions = {
@@ -31,14 +31,14 @@ export function getCurrentUser(setUser: any) {
         headers: { "Authorization": `Bearer ${token}` }
     }
 
-    fetch("http://localhost:8080/api/admin/user", requestOptions)
+    return fetch("http://localhost:8080/api/admin/user", requestOptions)
         .then((response) => response.json())
         .then((parsedResponse) => {
             if (!parsedResponse) {
                 redirectToLogin()
             }
 
-            setUser(parsedResponse.data)
+            return parsedResponse.data
         })
 }
 
