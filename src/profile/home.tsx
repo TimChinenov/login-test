@@ -8,7 +8,7 @@ export default function Home(props: any) {
 
     useEffect(() => {
         getCurrentUser()
-            .then((user: User) => setUser(user))
+            .then((user: User) => setUser( user))
     }, [])
 
     return (
