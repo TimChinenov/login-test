@@ -45,7 +45,7 @@ function createAccount(username: string, password: string) {
       body: JSON.stringify({ username: username, password: password})
     }
   
-    fetch('http://localhost:8080/api/users/', requestOptions)
+    fetch('http://localhost:8080/api/users', requestOptions)
       .then(response => response.json())
   }
   
