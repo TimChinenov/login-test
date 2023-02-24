@@ -31,7 +31,7 @@ export function getCurrentUser() {
         headers: { "Authorization": `Bearer ${token}` }
     }
 
-    return fetch("http://localhost:8080/api/admin/user", requestOptions)
+    return fetch("https://account-management.fly.dev/api/admin/user", requestOptions)
         .then((response) => response.json())
         .then((parsedResponse) => {
             if (!parsedResponse) {

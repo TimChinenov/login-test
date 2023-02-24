@@ -45,7 +45,7 @@ function createAccount(username: string, password: string) {
       body: JSON.stringify({ username: username, password: password})
     }
   
-    fetch('http://localhost:8080/api/users', requestOptions)
+    fetch('https://account-management.fly.dev/api/users', requestOptions)
       .then(response => response.json())
   }
   
@@ -56,7 +56,7 @@ function createAccount(username: string, password: string) {
       body: JSON.stringify({ username: username, password: password})
     }
   
-    return fetch('http://localhost:8080/api/login', requestOptions)
+    return fetch('https://account-management.fly.dev/api/login', requestOptions)
       .then(response => response.json())
       .then((data) => {
         setAccessToken(data.token)
