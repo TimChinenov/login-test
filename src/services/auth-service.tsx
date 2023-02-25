@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { baseUrl } from "./environment";
 
 export const getAccessToken = () => Cookies.get('access_token')
 export const isAuthenticated = () => !!getAccessToken()
@@ -12,11 +13,11 @@ export function setAccessToken(token: string) {
 }
 
 export function redirectToLogin() {
-    return  window.location.replace("https://account-management-27654.web.app/login");
+    return  window.location.replace(`${baseUrl}/login`);
 }
 
 export function redirectToHome() {
-    return  window.location.replace("https://account-management-27654.web.app/home");
+    return  window.location.replace(`${baseUrl}/home`);
 }
 
 export function getCurrentUser() {
@@ -31,7 +32,7 @@ export function getCurrentUser() {
         headers: { "Authorization": `Bearer ${token}` }
     }
 
-    return fetch("https://account-management.fly.dev/api/admin/user", requestOptions)
+    return fetch(`${baseUrl}/api/admin/user`, requestOptions)
         .then((response) => response.json())
         .then((parsedResponse) => {
             if (!parsedResponse) {
