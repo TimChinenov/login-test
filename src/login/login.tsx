@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { login } from "../account-management-api-sdk/account-management-api"
 import { redirectToHome, setAccessToken } from "../services/auth-service"
 import { baseUrl } from "../services/environment"
 
@@ -33,18 +34,4 @@ export default function Login() {
           <h4 className="text-center">...go make one</h4>
         </div>
     )
-}
-
-function login(username: string, password: string) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username: username, password: password})
-  }
-
-  return fetch(`${baseUrl}/api/login`, requestOptions)
-    .then(response => response.json())
-    .then((data) => {
-      setAccessToken(data.token)
-    })
 }

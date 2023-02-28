@@ -13,11 +13,11 @@ export function setAccessToken(token: string) {
 }
 
 export function redirectToLogin() {
-    return  window.location.replace(`${baseUrl}/login`);
+    return  window.location.replace(`/login`);
 }
 
 export function redirectToHome() {
-    return  window.location.replace(`${baseUrl}/home`);
+    return  window.location.replace(`/home`);
 }
 
 export function getCurrentUser() {
