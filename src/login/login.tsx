@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { redirectToHome, setAccessToken } from "../services/auth-service"
+import { baseUrl } from "../services/environment"
 
 export default function Login() {
     const [usernameField, setUsernameField] = useState<string>('')
@@ -45,7 +46,7 @@ function createAccount(username: string, password: string) {
       body: JSON.stringify({ username: username, password: password})
     }
   
-    fetch('https://account-management.fly.dev/api/users', requestOptions)
+    fetch(`${baseUrl}/api/users`, requestOptions)
       .then(response => response.json())
   }
   
@@ -56,7 +57,7 @@ function createAccount(username: string, password: string) {
       body: JSON.stringify({ username: username, password: password})
     }
   
-    return fetch('https://account-management.fly.dev/api/login', requestOptions)
+    return fetch(`${baseUrl}/api/login`, requestOptions)
       .then(response => response.json())
       .then((data) => {
         setAccessToken(data.token)
