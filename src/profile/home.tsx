@@ -12,8 +12,8 @@ export default function Home(props: any) {
     }, [])
 
     return (
-        <div>
-            <h1>Welcome Home {user?.username}!</h1>
+        <div className="grid grid-column place-content-center">
+            <h1>What's Going {user?.username}?</h1>
             <p>Score: {user?.score}</p>
         </div>
     )
