@@ -4,6 +4,7 @@ import Home from './profile/home';
 import Login from './login/login';
 import { isAuthenticated } from './services/auth-service';
 import CreateAccount from './create-account/create-account';
+import Newsfeed from './newsfeed/newsfeed';
 
 function App() {
 
@@ -24,6 +25,10 @@ function App() {
           <Route 
             path="/"
             element={verifyAuthentication(<Home />, <CreateAccount />)}
+          />
+          <Route 
+            path="/newsfeed"
+            element={verifyAuthentication(<Newsfeed />, <Login />)}
           />
         </Routes>
       </BrowserRouter>

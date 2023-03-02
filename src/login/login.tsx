@@ -1,8 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { login } from "../account-management-api-sdk/account-management-api"
-import { redirectToHome, setAccessToken } from "../services/auth-service"
-import { baseUrl } from "../services/environment"
+import { redirectToHome } from "../services/auth-service"
 
 export default function Login() {
     const [usernameField, setUsernameField] = useState<string>('')
