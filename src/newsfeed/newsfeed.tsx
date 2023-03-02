@@ -36,34 +36,43 @@ export default function Newsfeed() {
         }
 
         createPost(user?.id, bodyData)
-            .then(() => loadPosts())  
+            .then(() => {
+                setBodyData("")
+                loadPosts()
+            })  
     }
 
     return (
-        <div>
+        <div className="grid grid-column place-content-center">
             <h1>Newsfeed</h1>
+            <div className="grid grid-row">
+                <textarea
+                    className="textarea textarea-bordered"
+                    value={bodyData || ""}
+                    onChange={(event) => handleChange(event)}
+                    placeholder="Bio">
+                </textarea>
+                <button
+                    className="btn btn-secondary mt-4"
+                    onClick={() => handleSubmit()}>post</button>
+            </div>
             <div>
             {
                 posts.map(post => (
                     <div>
-                        { post.username }
-                        { post.body }
-                        { post.upvoteCount }
-                        { post.downvoteCount }
+                        <div className="card w-96 bg-primary text-primary-content my-4">
+                            <div className="card-body">
+                                <h2 className="card-title">@{ post.username }</h2>
+                                <p>{ post.body }</p>
+                                <div className="card-actions justify-end">
+                                <button className="btn btn-ghost">{ post.upvoteCount }</button>
+                                <button className="btn btn-ghost">{ post.downvoteCount }</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 ))
             }
-            </div>
-            <div>
-            <textarea
-                className="textarea textarea-bordered"
-                value={bodyData || ""}
-                onChange={(event) => handleChange(event)}
-                placeholder="Bio">
-            </textarea>
-            <button
-                className="btn btn-secondary mt-4"
-                onClick={() => handleSubmit()}>post</button>
             </div>
         </div>);
 }
