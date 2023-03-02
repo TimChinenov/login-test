@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { login } from "../account-management-api-sdk/account-management-api"
-import { redirectToHome } from "../services/auth-service"
+import { redirectToHome, redirectToNewsfeed } from "../services/auth-service"
 
 export default function Login() {
     const [usernameField, setUsernameField] = useState<string>('')
@@ -26,7 +26,7 @@ export default function Login() {
             placeholder='Password'
             onBlur={(event) => setPasswordField(event.target.value)} />
 
-          <button className="btn btn-primary mt-4" onClick={() => login(usernameField, passwordField).then(() => redirectToHome())} >
+          <button className="btn btn-primary mt-4" onClick={() => login(usernameField, passwordField).then(() => redirectToNewsfeed())} >
               Login
           </button>
           <button className="btn btn-link mt-4" onClick={() => navigate('/')}>No Account?</button>

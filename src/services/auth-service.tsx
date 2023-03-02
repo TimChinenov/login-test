@@ -20,6 +20,10 @@ export function redirectToHome() {
     return  window.location.replace(`/home`);
 }
 
+export function redirectToNewsfeed() {
+    return  window.location.replace(`/newsfeed`);
+}
+
 export function getCurrentUser() {
     let token = getAccessToken()
 

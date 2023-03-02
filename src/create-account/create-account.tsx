@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createAccount } from "../account-management-api-sdk/account-management-api"
-import { redirectToHome } from "../services/auth-service"
+import { redirectToHome, redirectToNewsfeed } from "../services/auth-service"
 import { baseUrl } from "../services/environment"
 
 interface createAccountForm {
@@ -27,7 +27,7 @@ export default function CreateAccount() {
             createAccountFormData.username,
             createAccountFormData.password,
             createAccountFormData.confirmPassword)
-        .then(() => redirectToHome())
+        .then(() => redirectToNewsfeed())
     }
 
     return (

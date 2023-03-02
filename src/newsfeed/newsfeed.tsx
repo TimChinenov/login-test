@@ -45,7 +45,7 @@ export default function Newsfeed() {
     return (
         <div className="grid grid-column place-content-center">
             <h1>Newsfeed</h1>
-            <div className="grid grid-row">
+            <div className="grid grid-row my-2">
                 <textarea
                     className="textarea textarea-bordered"
                     value={bodyData || ""}
