@@ -22,6 +22,10 @@ export const login = (username: string, password: string) => {
     return fetch(`${baseUrl}/api/login`, requestOptions)
       .then(response => response.json())
       .then((data) => {
+        if (!data.token) {
+          return
+        }
+        
         setAccessToken(data.token)
       })
 }

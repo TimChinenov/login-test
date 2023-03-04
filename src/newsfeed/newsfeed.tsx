@@ -58,7 +58,7 @@ export default function Newsfeed() {
             </div>
             <div>
             {
-                posts.map(post => (
+                posts.length && posts.map(post => (
                     <div>
                         <div className="card w-96 bg-primary text-primary-content my-4">
                             <div className="card-body">
