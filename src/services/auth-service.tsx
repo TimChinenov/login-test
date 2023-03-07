@@ -8,7 +8,6 @@ export const isAuthenticated = () => !!getAccessToken()
 export function setAccessToken(token: string) {
     const expireLength = 60 * 60 * 1000
       const expireTime = new Date(new Date().getTime() + expireLength)
-
       Cookies.set('access_token', token, { expires: expireTime });
 }
 

@@ -3,6 +3,8 @@ import { createPost, getPosts } from "../account-management-api-sdk/account-mana
 import { Post } from "../dtos/post"
 import User from "../dtos/user";
 import { getCurrentUser } from "../services/auth-service";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default function Newsfeed() {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -65,14 +67,18 @@ export default function Newsfeed() {
                                 <h2 className="card-title">@{ post.username }</h2>
                                 <p>{ post.body }</p>
                                 <div className="card-actions justify-end">
-                                <div>
-                                    <button className="btn btn-ghost">Like</button>
-                                    <p>{ post.upvoteCount }</p>
-                                </div>
-                                <div>
-                                    <button className="btn btn-ghost">Dislike</button>
-                                    <p>{ post.downvoteCount }</p>
-                                </div>
+                                    <div>
+                                        <button className="btn btn-ghost">
+                                            <FontAwesomeIcon icon={faHeart} />
+                                            <p> { post.upvoteCount }</p>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button className="btn btn-ghost">
+                                            <FontAwesomeIcon icon={faTrash} />
+                                            <p> { post.downvoteCount }</p>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
