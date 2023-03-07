@@ -65,8 +65,14 @@ export default function Newsfeed() {
                                 <h2 className="card-title">@{ post.username }</h2>
                                 <p>{ post.body }</p>
                                 <div className="card-actions justify-end">
-                                <button className="btn btn-ghost">{ post.upvoteCount }</button>
-                                <button className="btn btn-ghost">{ post.downvoteCount }</button>
+                                <div>
+                                    <button className="btn btn-ghost">Like</button>
+                                    <p>{ post.upvoteCount }</p>
+                                </div>
+                                <div>
+                                    <button className="btn btn-ghost">Dislike</button>
+                                    <p>{ post.downvoteCount }</p>
+                                </div>
                                 </div>
                             </div>
                         </div>
