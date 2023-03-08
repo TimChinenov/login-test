@@ -68,15 +68,15 @@ export default function Newsfeed() {
                                 <p>{ post.body }</p>
                                 <div className="card-actions justify-end">
                                     <div>
-                                        <button className="btn btn-ghost">
-                                            <FontAwesomeIcon icon={faHeart} />
-                                            <p> { post.upvoteCount }</p>
+                                        <button className="inline-flex">
+                                            <FontAwesomeIcon icon={faHeart} className="mt-1"/>
+                                            <p className="ml-2"> { post.upvoteCount }</p>
                                         </button>
                                     </div>
-                                    <div>
-                                        <button className="btn btn-ghost">
-                                            <FontAwesomeIcon icon={faTrash} />
-                                            <p> { post.downvoteCount }</p>
+                                    <div className="ml-4">
+                                        <button className="inline-flex">
+                                        <FontAwesomeIcon icon={faTrash} className="mt-1"/>
+                                            <p className="ml-2"> { post.downvoteCount }</p>
                                         </button>
                                     </div>
                                 </div>
