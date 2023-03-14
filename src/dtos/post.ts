@@ -3,5 +3,6 @@ export interface Post {
     username: string,
     body: string,
     upvoteCount: number,
-    downvoteCount: number
+    downvoteCount: number,
+    currentUserVoteType: number
 }

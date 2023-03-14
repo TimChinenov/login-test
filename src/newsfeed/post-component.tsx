@@ -20,7 +20,8 @@ export default function PostComponent(props: { post: Post }) {
                 username: post.username,
                 body: post.body,
                 upvoteCount: updatedPostVotes.upvoteCount,
-                downvoteCount: updatedPostVotes.downvoteCount
+                downvoteCount: updatedPostVotes.downvoteCount,
+                currentUserVoteType: post.currentUserVoteType
             })
         }
 
@@ -35,13 +36,19 @@ export default function PostComponent(props: { post: Post }) {
             <div className="card-actions justify-end">
                 <div>
                     <button className="inline-flex" onClick={() => handleVote(1)}>
-                        <FontAwesomeIcon icon={faHeart} className="mt-1"/>
+                        { post.currentUserVoteType == 1 ? 
+                            <FontAwesomeIcon icon={faHeart} className="mt-1 text-green-500"/> :
+                            <FontAwesomeIcon icon={faHeart} className="mt-1"/>
+                        }
                         <p className="ml-2"> { post.upvoteCount }</p>
                     </button>
                 </div>
                 <div className="ml-4">
                     <button className="inline-flex" onClick={() => handleVote(0)}>
-                        <FontAwesomeIcon icon={faTrash} className="mt-1"/>
+                        { post.currentUserVoteType == 0 ? 
+                            <FontAwesomeIcon icon={faTrash} className="mt-1 text-red-500"/> :
+                            <FontAwesomeIcon icon={faTrash} className="mt-1"/>
+                        }
                         <p className="ml-2"> { post.downvoteCount }</p>
                     </button>
                 </div>
