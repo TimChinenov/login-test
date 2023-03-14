@@ -1,3 +1,4 @@
+import { VoteResponse } from "../dtos/vote-response"
 import { getAccessToken, setAccessToken } from "../services/auth-service"
 import { baseUrl } from "../services/environment"
 
@@ -66,11 +67,11 @@ export const createPost = async (userId: number, body: string) => {
       .then(response => response.json())
 }
 
-export const votePost = async (userId: number, postId: number, voteType: number) => {
+export const voteOnPost = async (postId: number, voteType: number): Promise<VoteResponse> => {
   let token = getAccessToken()
 
   if (!token) {
-    return Promise.resolve()
+    return Promise.reject()
   }
 
   const requestOptions = {
@@ -79,7 +80,7 @@ export const votePost = async (userId: number, postId: number, voteType: number)
       "Content-Type": "application/json",
       "Authorization":  `Bearer ${token}`
     },
-    body: JSON.stringify({ userId: userId, postId: postId, voteType: voteType })
+    body: JSON.stringify({ postId: postId, voteType: voteType })
   }
 
   return fetch(`${baseUrl}/api/admin/posts/vote`, requestOptions)
