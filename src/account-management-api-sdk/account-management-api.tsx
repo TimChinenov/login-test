@@ -65,3 +65,23 @@ export const createPost = async (userId: number, body: string) => {
   return fetch(`${baseUrl}/api/admin/posts`, requestOptions)
       .then(response => response.json())
 }
+
+export const votePost = async (userId: number, postId: number, voteType: number) => {
+  let token = getAccessToken()
+
+  if (!token) {
+    return Promise.resolve()
+  }
+
+  const requestOptions = {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization":  `Bearer ${token}`
+    },
+    body: JSON.stringify({ userId: userId, postId: postId, voteType: voteType })
+  }
+
+  return fetch(`${baseUrl}/api/admin/posts/vote`, requestOptions)
+      .then(response => response.json())
+}

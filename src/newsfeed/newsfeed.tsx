@@ -5,6 +5,7 @@ import User from "../dtos/user";
 import { getCurrentUser } from "../services/auth-service";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons'
+import PostComponent from "./post-component";
 
 export default function Newsfeed() {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -62,26 +63,7 @@ export default function Newsfeed() {
             {
                 posts.length && posts.map(post => (
                     <div>
-                        <div className="card w-96 bg-primary text-primary-content my-4">
-                            <div className="card-body">
-                                <h2 className="card-title">@{ post.username }</h2>
-                                <p>{ post.body }</p>
-                                <div className="card-actions justify-end">
-                                    <div>
-                                        <button className="inline-flex">
-                                            <FontAwesomeIcon icon={faHeart} className="mt-1"/>
-                                            <p className="ml-2"> { post.upvoteCount }</p>
-                                        </button>
-                                    </div>
-                                    <div className="ml-4">
-                                        <button className="inline-flex">
-                                        <FontAwesomeIcon icon={faTrash} className="mt-1"/>
-                                            <p className="ml-2"> { post.downvoteCount }</p>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <PostComponent key={post.id} post={post} />
                     </div>
                 ))
             }
