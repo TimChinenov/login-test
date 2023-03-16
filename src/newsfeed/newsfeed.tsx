@@ -11,6 +11,7 @@ export default function Newsfeed() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [bodyData, setBodyData] = useState<string>("");
     const [user, setUser] = useState<User>()
+    const [latestPost, setLatestPost] = useState<Post>();
 
     const loadPosts = async () => {
         const postData = await getPosts(1, 15)
@@ -27,6 +28,25 @@ export default function Newsfeed() {
             setUser(userData)
         }
         loadUser();
+    }, [])
+
+    useEffect(() => {
+        const getNewestPost = async () => {
+            const posts = await getPosts(1, 1)
+            if (posts.length < 1) {
+                return
+            }
+
+            setLatestPost(posts[0])
+        }
+
+        getNewestPost()
+
+        const interval = setInterval(() => {
+            getNewestPost()
+          }, 15000);
+      
+          return () => clearInterval(interval);
     }, [])
 
     const handleChange = (e: any) => {
@@ -59,6 +79,13 @@ export default function Newsfeed() {
                     className="btn btn-secondary mt-4"
                     onClick={() => handleSubmit()}>post</button>
             </div>
+
+            <div>
+                {
+                    latestPost && (latestPost?.id - posts[0].id > 5) && <div>Load New Posts!</div>
+                }
+            </div>
+
             <div>
             {
                 posts.length && posts.map(post => (
