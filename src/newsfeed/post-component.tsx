@@ -21,7 +21,7 @@ export default function PostComponent(props: { post: Post }) {
                 body: post.body,
                 upvoteCount: updatedPostVotes.upvoteCount,
                 downvoteCount: updatedPostVotes.downvoteCount,
-                currentUserVoteType: post.currentUserVoteType
+                currentUserVoteType: updatedPostVotes.voteType
             })
         }
 
