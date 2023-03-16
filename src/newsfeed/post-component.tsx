@@ -13,6 +13,10 @@ export default function PostComponent(props: { post: Post }) {
             return
         }
 
+        if (voteType == post.currentUserVoteType) {
+            return
+        }
+
         const updatePostVote = async () => {
             const updatedPostVotes: VoteResponse = await voteOnPost(post.id, voteType)
             setPost({
