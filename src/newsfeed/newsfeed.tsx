@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
+import { setSourceMapRange } from "typescript";
 import { createPost, getPosts } from "../account-management-api-sdk/account-management-api"
 import { Post } from "../dtos/post"
 import User from "../dtos/user";
 import { getCurrentUser } from "../services/auth-service";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons'
 import PostComponent from "./post-component";
 
 export default function Newsfeed() {
@@ -12,10 +11,12 @@ export default function Newsfeed() {
     const [bodyData, setBodyData] = useState<string>("");
     const [user, setUser] = useState<User>()
     const [latestPost, setLatestPost] = useState<Post>();
+    const [page, setPage] = useState<number>(1);
 
     const loadPosts = async () => {
-        const postData = await getPosts(1, 15)
-        setPosts(postData)
+        const postData = await getPosts(page, 15)
+        setPosts([...posts, ...postData])
+        setPage(page + 1)
     }
 
     useEffect(() => {
@@ -27,7 +28,8 @@ export default function Newsfeed() {
             const userData = await getCurrentUser()
             setUser(userData)
         }
-        loadUser();
+
+        loadUser()
     }, [])
 
     useEffect(() => {
@@ -48,6 +50,18 @@ export default function Newsfeed() {
       
           return () => clearInterval(interval);
     }, [])
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [[page]])
+
+    const handleScroll = () => {
+        if (window.innerHeight + document.documentElement.scrollTop ===
+            document.documentElement.offsetHeight) {
+                loadPosts()
+        }
+    }
 
     const handleChange = (e: any) => {
         setBodyData(e.target.value)

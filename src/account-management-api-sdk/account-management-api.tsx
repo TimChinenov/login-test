@@ -43,7 +43,7 @@ export const getPosts = async (page: number, pageCount: number) => {
     headers: { "Authorization": `Bearer ${token}` }
   }
 
-  return fetch(`${baseUrl}/api/admin/posts/${page}/${pageCount}`, requestOptions)
+  return fetch(`${baseUrl}/api/admin/posts?page=${page}&page_count=${pageCount}`, requestOptions)
     .then(response => response.json())
 }
 
