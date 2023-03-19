@@ -1,1 +1,1 @@
-export const baseUrl = "https://account-management.fly.dev" /*?? "http://localhost:8080"*/;
+export const baseUrl = /*"https://account-management.fly.dev" ??*/ "http://localhost:8080";

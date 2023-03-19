@@ -31,32 +31,39 @@ export default function CreateAccount() {
     }
 
     return (
-        <div className="grid grid-column place-content-center">
-            <h1 className="text-center">Create Account</h1>
-            <h4 className="text-center">or don't, it's totally up to you</h4>
-
-            <form>
-                <input
-                    value={createAccountFormData.username || ''}
-                    onChange={handleChange('username')}
-                    className="input input-bordered w-full appearance-none my-2"
-                    placeholder="Username"/>
-                <input
-                    value={createAccountFormData.password || ''}
-                    onChange={handleChange('password')}
-                    type="password"
-                    className="input input-bordered w-full appearance-none my-2"
-                    placeholder="Password"/>
-                <input
-                    value={createAccountFormData.confirmPassword || ''}
-                    onChange={handleChange('confirmPassword')}
-                    type="password"
-                    className="input input-bordered w-full appearance-none my-2"
-                    placeholder="Confirm Password"/>
-            </form>
-
-            <button className="btn btn-primary mt-4" onClick={() => handleSubmit()}>Create Account</button>
-            <button className="btn btn-link mt-4" onClick={() => navigate('/login')}>Already have account?</button>
-            <h4 className="text-center">...then go login</h4>
-        </div>)
+        <div className="grid grid-column place-content-center h-screen">
+            <div className="relative border-4 border-primary z-10 w-[48rem]">
+                <div className="absolute inset-0 border-[124px] border-white transform -rotate-45 z-20">
+                </div>
+                <div className="absolute inset-0 border-[124px] border-white transform rotate-45 z-20">
+                </div>
+                <div className="p-24 z-50 text-center relative">
+                    <h1 className="text-center mb-4">Join The Club</h1>
+                    <form className="">
+                        <input
+                            value={createAccountFormData.username || ''}
+                            onChange={handleChange('username')}
+                            className="input input-bordered w-full appearance-none my-2"
+                            placeholder="Username"/>
+                        <input
+                            value={createAccountFormData.password || ''}
+                            onChange={handleChange('password')}
+                            type="password"
+                            className="input input-bordered w-full appearance-none my-2"
+                            placeholder="Password"/>
+                        <input
+                            value={createAccountFormData.confirmPassword || ''}
+                            onChange={handleChange('confirmPassword')}
+                            type="password"
+                            className="input input-bordered w-full appearance-none my-2"
+                            placeholder="Confirm Password"/>
+                        <button className="btn btn-primary mt-4 w-full" onClick={() => handleSubmit()}>
+                            Create Account
+                        </button>
+                    </form>
+                    <button className="btn btn-link mt-4" onClick={() => navigate('/login')}>Already have account?</button>
+                </div>
+            </div>
+        </div>
+    )
 }
