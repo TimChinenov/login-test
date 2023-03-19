@@ -1,17 +1,20 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createAccount } from "../account-management-api-sdk/account-management-api"
-import { redirectToHome, redirectToNewsfeed } from "../services/auth-service"
-import { baseUrl } from "../services/environment"
+import { redirectToNewsfeed } from "../services/auth-service"
 
-interface createAccountForm {
-    username: string,
-    password: string,
-    confirmPassword: string
+interface CreateAccountForm {
+    username: string | null,
+    password: string | null,
+    confirmPassword: string | null
 }
 
 export default function CreateAccount() {
-    const [createAccountFormData, setCreateAccountFormData] = useState<any>({})
+    const [createAccountFormData, setCreateAccountFormData] = useState<CreateAccountForm>({
+        username: null,
+        password: null,
+        confirmPassword: null
+    })
 
     const navigate = useNavigate();
 
@@ -23,6 +26,10 @@ export default function CreateAccount() {
     }
 
     const handleSubmit = () => {
+        if (!createAccountFormData.username || !createAccountFormData.password || !createAccountFormData.confirmPassword) {
+            return
+        }
+
         createAccount(
             createAccountFormData.username,
             createAccountFormData.password,
@@ -41,27 +48,27 @@ export default function CreateAccount() {
                     <h1 className="text-center mb-4">Join The Club</h1>
                     <form>
                         <input
-                            value={createAccountFormData.username || ''}
-                            onChange={handleChange('username')}
                             className="input input-bordered w-full appearance-none my-2"
+                            value={createAccountFormData.username || ""}
+                            onChange={handleChange("username")}
                             placeholder="Username"/>
                         <input
-                            value={createAccountFormData.password || ''}
-                            onChange={handleChange('password')}
-                            type="password"
                             className="input input-bordered w-full appearance-none my-2"
+                            value={createAccountFormData.password || ""}
+                            onChange={handleChange("password")}
+                            type="password"
                             placeholder="Password"/>
                         <input
-                            value={createAccountFormData.confirmPassword || ''}
-                            onChange={handleChange('confirmPassword')}
-                            type="password"
                             className="input input-bordered w-full appearance-none my-2"
+                            value={createAccountFormData.confirmPassword || ""}
+                            onChange={handleChange("confirmPassword")}
+                            type="password"
                             placeholder="Confirm Password"/>
                         <button className="btn btn-primary mt-4 w-full" onClick={() => handleSubmit()}>
                             Create Account
                         </button>
                     </form>
-                    <button className="btn btn-link mt-4" onClick={() => navigate('/login')}>Already have account?</button>
+                    <button className="btn btn-link mt-4" onClick={() => navigate("/login")}>Already have account?</button>
                 </div>
             </div>
         </div>

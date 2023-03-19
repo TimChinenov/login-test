@@ -1,13 +1,36 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { login } from "../account-management-api-sdk/account-management-api"
-import { redirectToHome, redirectToNewsfeed } from "../services/auth-service"
+import { redirectToNewsfeed } from "../services/auth-service"
+
+interface LoginForm {
+  username: string | null,
+  password: string | null
+}
 
 export default function Login() {
-    const [usernameField, setUsernameField] = useState<string>('')
-    const [passwordField, setPasswordField] = useState<string>('')
+    const [loginFormData, setLoginFormData] = useState<LoginForm>({
+      username: null,
+      password: null
+    })
 
     const navigate = useNavigate();
+
+    const handleChange = (key: any) => (e: any) => {
+      setLoginFormData({
+          ...loginFormData,
+          [key]: e.target.value
+      })
+    }
+
+    const handleSubmit = () => {
+        if (!loginFormData.username || !loginFormData.password) {
+            return
+        }
+
+        login(loginFormData.username, loginFormData.password)
+          .then(() => redirectToNewsfeed())
+    }
 
     return (
         <div className="grid grid-column place-content-center h-screen">
@@ -21,19 +44,21 @@ export default function Login() {
                     <form>
                         <input
                           className="input input-bordered w-full appearance-none my-2"
+                          value={loginFormData.username || ""}
+                          onChange={handleChange("username")}
                           type="text"
-                          placeholder='Username'
-                          onBlur={(event) => setUsernameField(event.target.value)} />
+                          placeholder="Username"/>
                         <input
                           className="input input-bordered w-full appearance-none my-2"
+                          value={loginFormData.password || ""}
+                          onChange={handleChange("passowrd")}
                           type="password"
-                          placeholder='Password'
-                          onBlur={(event) => setPasswordField(event.target.value)} />
-                        <button className="btn btn-primary mt-4 w-full" onClick={() => login(usernameField, passwordField).then(() => redirectToNewsfeed())} >
+                          placeholder="Password"/>
+                        <button className="btn btn-primary mt-4 w-full" onClick={() => handleSubmit()}>
                             Login
                         </button>
                     </form>
-                    <button className="btn btn-link mt-4" onClick={() => navigate('/')}>No Account?</button>
+                    <button className="btn btn-link mt-4" onClick={() => navigate("/")}>No Account?</button>
                 </div>
             </div>
         </div>
