@@ -39,7 +39,7 @@ export default function CreateAccount() {
                 </div>
                 <div className="p-24 z-50 text-center relative">
                     <h1 className="text-center mb-4">Join The Club</h1>
-                    <form className="">
+                    <form>
                         <input
                             value={createAccountFormData.username || ''}
                             onChange={handleChange('username')}

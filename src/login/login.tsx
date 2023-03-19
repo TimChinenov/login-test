@@ -10,27 +10,32 @@ export default function Login() {
     const navigate = useNavigate();
 
     return (
-        <div className="grid grid-column place-content-center"> 
-          <h1 className="text-center">Login</h1>
-          <h4 className="text-center">Your username and password go in the fields below</h4>
-
-          <input
-            className="input input-bordered w-full appearance-none my-2"
-            type="text"
-            placeholder='Username'
-            onBlur={(event) => setUsernameField(event.target.value)} />
-
-          <input
-            className="input input-bordered w-full appearance-none my-2"
-            type="password"
-            placeholder='Password'
-            onBlur={(event) => setPasswordField(event.target.value)} />
-
-          <button className="btn btn-primary mt-4" onClick={() => login(usernameField, passwordField).then(() => redirectToNewsfeed())} >
-              Login
-          </button>
-          <button className="btn btn-link mt-4" onClick={() => navigate('/')}>No Account?</button>
-          <h4 className="text-center">...go make one</h4>
+        <div className="grid grid-column place-content-center h-screen">
+            <div className="relative border-4 border-primary z-10 w-[48rem]">
+                <div className="absolute inset-0 border-[248px] border-white transform -rotate-45 z-20">
+                </div>
+                <div className="absolute inset-0 border-[248px] border-white transform rotate-45 z-20">
+                </div>
+                <div className="p-24 my-8 z-50 text-center relative">
+                    <h1 className="text-center mb-4">Login</h1>
+                    <form>
+                        <input
+                          className="input input-bordered w-full appearance-none my-2"
+                          type="text"
+                          placeholder='Username'
+                          onBlur={(event) => setUsernameField(event.target.value)} />
+                        <input
+                          className="input input-bordered w-full appearance-none my-2"
+                          type="password"
+                          placeholder='Password'
+                          onBlur={(event) => setPasswordField(event.target.value)} />
+                        <button className="btn btn-primary mt-4 w-full" onClick={() => login(usernameField, passwordField).then(() => redirectToNewsfeed())} >
+                            Login
+                        </button>
+                    </form>
+                    <button className="btn btn-link mt-4" onClick={() => navigate('/')}>No Account?</button>
+                </div>
+            </div>
         </div>
     )
 }
