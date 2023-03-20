@@ -10,8 +10,12 @@ jest.mock('../services/auth-service');
 describe("Login", () => {
     const username = "testuser"
     const password = "testpassword"
+
     let getByPlaceholderText: any
     let getByText: any
+
+    let usernameInput: HTMLInputElement
+    let passwordInput: HTMLInputElement
 
     beforeEach(() => {
         const component = render(
@@ -22,6 +26,9 @@ describe("Login", () => {
       
           getByPlaceholderText = component.getByPlaceholderText;
           getByText = component.getByText;
+
+          usernameInput = getByPlaceholderText("Username") as HTMLInputElement
+          passwordInput = getByPlaceholderText("Password") as HTMLInputElement;
     })
 
     afterEach(() => {
@@ -31,9 +38,6 @@ describe("Login", () => {
     it("should submit the login form data when the submit button is selected", async () => {
         (login as jest.Mock).mockImplementation(jest.fn().mockResolvedValue(true));
         (redirectToNewsfeed as jest.Mock).mockImplementation(jest.fn());
-
-        const usernameInput = getByPlaceholderText("Username") as HTMLInputElement;
-        const passwordInput = getByPlaceholderText("Password") as HTMLInputElement;
         const loginButton = getByText("Login");
 
         fireEvent.change(usernameInput, { target: { value: username } });
@@ -53,9 +57,6 @@ describe("Login", () => {
     it("should not submit data if username is missing", async () => {
         (login as jest.Mock).mockImplementation(jest.fn().mockResolvedValue(true));
         (redirectToNewsfeed as jest.Mock).mockImplementation(jest.fn());
-
-        const usernameInput = getByPlaceholderText("Username") as HTMLInputElement;
-        const passwordInput = getByPlaceholderText("Password") as HTMLInputElement;
         const loginButton = getByText("Login");
 
         fireEvent.change(passwordInput, { target: { value: password } });
@@ -74,9 +75,6 @@ describe("Login", () => {
     it("should not submit data if passowrd is missing", async () => {
         (login as jest.Mock).mockImplementation(jest.fn().mockResolvedValue(true));
         (redirectToNewsfeed as jest.Mock).mockImplementation(jest.fn());
-
-        const usernameInput = getByPlaceholderText("Username") as HTMLInputElement;
-        const passwordInput = getByPlaceholderText("Password") as HTMLInputElement;
         const loginButton = getByText("Login");
 
         fireEvent.change(usernameInput, { target: { value: username } });

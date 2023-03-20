@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createAccount } from "../account-management-api-sdk/account-management-api"
-import { redirectToNewsfeed } from "../services/auth-service"
+import { redirectToLogin } from "../services/auth-service"
 
 interface CreateAccountForm {
     username: string | null,
@@ -25,16 +25,17 @@ export default function CreateAccount() {
         })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async (event: any) => {
+        event.preventDefault()
         if (!createAccountFormData.username || !createAccountFormData.password || !createAccountFormData.confirmPassword) {
             return
         }
 
-        createAccount(
+        await createAccount(
             createAccountFormData.username,
             createAccountFormData.password,
             createAccountFormData.confirmPassword)
-        .then(() => redirectToNewsfeed())
+            .then(() => redirectToLogin())
     }
 
     return (
@@ -46,7 +47,7 @@ export default function CreateAccount() {
                 </div>
                 <div className="p-24 z-50 text-center relative">
                     <h1 className="text-center mb-4">Join The Club</h1>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <input
                             className="input input-bordered w-full appearance-none my-2"
                             value={createAccountFormData.username || ""}
@@ -64,7 +65,7 @@ export default function CreateAccount() {
                             onChange={handleChange("confirmPassword")}
                             type="password"
                             placeholder="Confirm Password"/>
-                        <button className="btn btn-primary mt-4 w-full" onClick={() => handleSubmit()}>
+                        <button className="btn btn-primary mt-4 w-full" type="submit">
                             Create Account
                         </button>
                     </form>

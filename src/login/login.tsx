@@ -23,12 +23,13 @@ export default function Login() {
       })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async (event: any) => {
+        event.preventDefault()
         if (!loginFormData.username || !loginFormData.password) {
             return
         }
 
-        login(loginFormData.username, loginFormData.password)
+        await login(loginFormData.username, loginFormData.password)
           .then(() => redirectToNewsfeed())
     }
 
@@ -41,7 +42,7 @@ export default function Login() {
                 </div>
                 <div className="p-24 my-8 z-50 text-center relative">
                     <h1 className="text-center mb-4">Sign In</h1>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <input
                             className="input input-bordered w-full appearance-none my-2"
                             value={loginFormData.username || ""}
@@ -53,7 +54,7 @@ export default function Login() {
                             onChange={handleChange("password")}
                             type="password"
                             placeholder="Password"/>
-                        <button className="btn btn-primary mt-4 w-full" onClick={() => handleSubmit()} type="submit">
+                        <button className="btn btn-primary mt-4 w-full" type="submit">
                             Login
                         </button>
                     </form>
