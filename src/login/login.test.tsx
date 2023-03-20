@@ -29,10 +29,8 @@ describe("Login", () => {
     });
     
     it("should submit the login form data when the submit button is selected", async () => {
-        const mockLogin = jest.fn().mockResolvedValue(true);
-        const mockRedirect = jest.fn();
-        (login as jest.Mock).mockImplementation(mockLogin);
-        (redirectToNewsfeed as jest.Mock).mockImplementation(mockRedirect);
+        (login as jest.Mock).mockImplementation(jest.fn().mockResolvedValue(true));
+        (redirectToNewsfeed as jest.Mock).mockImplementation(jest.fn());
 
         const usernameInput = getByPlaceholderText("Username") as HTMLInputElement;
         const passwordInput = getByPlaceholderText("Password") as HTMLInputElement;
@@ -48,15 +46,13 @@ describe("Login", () => {
             fireEvent.click(loginButton);
         });
 
-        expect(mockLogin).toHaveBeenCalledWith('testuser', 'testpassword');
-        await expect(mockRedirect).toHaveBeenCalled();
+        expect(login).toHaveBeenCalledWith('testuser', 'testpassword');
+        await expect(redirectToNewsfeed).toHaveBeenCalled();
     })
 
     it("should not submit data if username is missing", async () => {
-        const mockLogin = jest.fn().mockResolvedValue(true);
-        const mockRedirect = jest.fn();
-        (login as jest.Mock).mockImplementation(mockLogin);
-        (redirectToNewsfeed as jest.Mock).mockImplementation(mockRedirect);
+        (login as jest.Mock).mockImplementation(jest.fn().mockResolvedValue(true));
+        (redirectToNewsfeed as jest.Mock).mockImplementation(jest.fn());
 
         const usernameInput = getByPlaceholderText("Username") as HTMLInputElement;
         const passwordInput = getByPlaceholderText("Password") as HTMLInputElement;
@@ -71,7 +67,28 @@ describe("Login", () => {
             fireEvent.click(loginButton);
         });
 
-        expect(mockLogin).toHaveBeenCalledTimes(0)
-        expect(mockRedirect).toHaveBeenCalledTimes(0)
+        expect(login).toHaveBeenCalledTimes(0)
+        expect(redirectToNewsfeed).toHaveBeenCalledTimes(0)
+    })
+
+    it("should not submit data if passowrd is missing", async () => {
+        (login as jest.Mock).mockImplementation(jest.fn().mockResolvedValue(true));
+        (redirectToNewsfeed as jest.Mock).mockImplementation(jest.fn());
+
+        const usernameInput = getByPlaceholderText("Username") as HTMLInputElement;
+        const passwordInput = getByPlaceholderText("Password") as HTMLInputElement;
+        const loginButton = getByText("Login");
+
+        fireEvent.change(usernameInput, { target: { value: username } });
+
+        expect(usernameInput.value).toBe(username)
+        expect(passwordInput.value).toBe("")
+        
+        await act(async () => {
+            fireEvent.click(loginButton);
+        });
+
+        expect(login).toHaveBeenCalledTimes(0)
+        expect(redirectToNewsfeed).toHaveBeenCalledTimes(0)
     })
 })
