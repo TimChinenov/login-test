@@ -16,10 +16,10 @@ export default function Login() {
 
     const navigate = useNavigate();
 
-    const handleChange = (key: any) => (e: any) => {
+    const handleChange = (key: any) => (event: any) => {
       setLoginFormData({
           ...loginFormData,
-          [key]: e.target.value
+          [key]: event.target.value
       })
     }
 
@@ -40,21 +40,20 @@ export default function Login() {
                 <div className="absolute inset-0 border-[248px] border-white transform rotate-45 z-20">
                 </div>
                 <div className="p-24 my-8 z-50 text-center relative">
-                    <h1 className="text-center mb-4">Login</h1>
+                    <h1 className="text-center mb-4">Sign In</h1>
                     <form>
                         <input
-                          className="input input-bordered w-full appearance-none my-2"
-                          value={loginFormData.username || ""}
-                          onChange={handleChange("username")}
-                          type="text"
-                          placeholder="Username"/>
+                            className="input input-bordered w-full appearance-none my-2"
+                            value={loginFormData.username || ""}
+                            onChange={handleChange("username")}
+                            placeholder="Username"/>
                         <input
-                          className="input input-bordered w-full appearance-none my-2"
-                          value={loginFormData.password || ""}
-                          onChange={handleChange("passowrd")}
-                          type="password"
-                          placeholder="Password"/>
-                        <button className="btn btn-primary mt-4 w-full" onClick={() => handleSubmit()}>
+                            className="input input-bordered w-full appearance-none my-2"
+                            value={loginFormData.password || ""}
+                            onChange={handleChange("password")}
+                            type="password"
+                            placeholder="Password"/>
+                        <button className="btn btn-primary mt-4 w-full" onClick={() => handleSubmit()} type="submit">
                             Login
                         </button>
                     </form>
